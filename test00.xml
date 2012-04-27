@@ -9,6 +9,7 @@
     <![CDATA[
       Hello, small world!
       msg.createDismissibleMessage("Please close me when you're done reading me.");
+      document.write("this is document.write");
     ]]>  
   </Content>
   <Content type="html" view="canvas"> 
