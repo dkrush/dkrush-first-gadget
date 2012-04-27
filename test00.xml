@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Test00" />
+  <ModulePrefs title="Test00"> 
   <Require feature="opensocial-0.8" />
   <Require feature="minimessage"/>
-  var msg = new gadgets.MiniMessage(__MODULE_ID__);
+  </ModulePrefs>
+  var msg = new gadgets.MiniMessage("Test00");
   <Content type="html" view="home">
     <![CDATA[
       Hello, small world!
