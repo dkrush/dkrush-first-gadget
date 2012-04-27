@@ -8,8 +8,10 @@
   <Content type="html" view="home">
     <![CDATA[
       Hello, small world!
-      msg.createDismissibleMessage("Please close me when you're done reading me.");
-      document.write("this is document.write");
+      <SCRIPT LANGUAGE = JavaScript>
+        msg.createDismissibleMessage("Please close me when you're done reading me.");
+        document.write("this is document.write");
+      </SCRIPT>
     ]]>  
   </Content>
   <Content type="html" view="canvas"> 
