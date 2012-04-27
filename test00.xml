@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Hello World!" />
-  <Content type="html">
+  <ModulePrefs title="Test00" />
+  <Require feature="opensocial-0.8" />
+  <Require feature="minimessage"/>
+  var msg = new gadgets.MiniMessage(__MODULE_ID__);
+  <Content type="html" view="home">
     <![CDATA[
-      Hello, world!
-    ]]>
+      Hello, small world!
+    ]]>  
+  </Content>
+  <Content type="html" view="canvas"> 
+    <![CDATA[
+      Hello, big world!
+      msg.createDismissibleMessage("Please close me when you're done reading me.");
+    ]]> 
   </Content>
 </Module>
