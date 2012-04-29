@@ -6,7 +6,7 @@
   </ModulePrefs>
   <Content type="html" view="home">
     <![CDATA[
-		
+		<SCRIPT type="text/javascript"> 
 		function gen_fib0()
 		{var t;
 		 var num1=eval(document.getElementById("num1").value);//parseInt(.), parseFloat(.)
@@ -29,6 +29,7 @@
 				//document.write("<br/>"+num2);
 			}
 		}
+    </SCRIPT>
 	  
 		
 		<h1> Fibonacci numbers </h1>
