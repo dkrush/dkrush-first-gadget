@@ -57,4 +57,5 @@
 
 		<textarea name="outstr" id="outstr" cols="30" rows="50" readonly="yes"> output will come here </textarea>
     ]]>  
+  </Content>
 </Module>
