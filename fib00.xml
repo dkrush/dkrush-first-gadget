@@ -6,6 +6,9 @@
   </ModulePrefs>
   <Content type="html" view="home">
     <![CDATA[
+      <STYLE type="text/css">
+        INPUT.myinp {text-align: right}
+      </STYLE>
       <SCRIPT type="text/javascript"> 
         function gen_fib0()
         {var t;
