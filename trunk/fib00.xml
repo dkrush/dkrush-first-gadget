@@ -6,30 +6,30 @@
   </ModulePrefs>
   <Content type="html" view="home">
     <![CDATA[
-		<SCRIPT type="text/javascript"> 
-		function gen_fib0()
-		{var t;
-		 var num1=eval(document.getElementById("num1").value);//parseInt(.), parseFloat(.)
-		 var num2=eval(document.getElementById("num2").value);
-		 var cntmax=eval(document.getElementById("cntmax").value);
-			//document.getElementById("outstr").value=null;
-			if(document.getElementById("fl_iter").checked){
-				document.getElementById("outstr").value=0+'\t'+num1+'\n'+1+'\t'+num2+'\n';
-			}else{
-				document.getElementById("outstr").value=num1+'\n'+num2+'\n';
-			}
-			for(var i=0;i<cntmax;i++){
-				t=num2;
-				num2+=num1;
-				num1=t;
-				if(document.getElementById("fl_iter").checked){
-					document.getElementById("outstr").value+=(i+2)+'\t';
-				}
-				document.getElementById("outstr").value+=num2+'\n';
-				//document.write("<br/>"+num2);
-			}
-		}
-    </SCRIPT>
+      <SCRIPT type="text/javascript"> 
+        function gen_fib0()
+        {var t;
+         var num1=eval(document.getElementById("num1").value);//parseInt(.), parseFloat(.)
+         var num2=eval(document.getElementById("num2").value);
+         var cntmax=eval(document.getElementById("cntmax").value);
+           //document.getElementById("outstr").value=null;
+           if(document.getElementById("fl_iter").checked){
+              document.getElementById("outstr").value=0+'\t'+num1+'\n'+1+'\t'+num2+'\n';
+           }else{
+              document.getElementById("outstr").value=num1+'\n'+num2+'\n';
+           }
+           for(var i=0;i<cntmax;i++){
+              t=num2;
+              num2+=num1;
+              num1=t;
+              if(document.getElementById("fl_iter").checked){
+                 document.getElementById("outstr").value+=(i+2)+'\t';
+              }
+              document.getElementById("outstr").value+=num2+'\n';
+              //document.write("<br/>"+num2);
+           }
+        }
+      </SCRIPT>
 	  
 		
 		<h1> Fibonacci numbers </h1>
