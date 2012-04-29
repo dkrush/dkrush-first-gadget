@@ -4,20 +4,14 @@
   <Require feature="opensocial-0.8" />
   <Require feature="minimessage"/>
   </ModulePrefs>
-  var msg = new gadgets.MiniMessage("Test00");
   <Content type="html" view="home">
     <![CDATA[
       Hello, small world!
-      <SCRIPT LANGUAGE = JavaScript>
-        msg.createDismissibleMessage("Please close me when you're done reading me.");
-        document.write("this is document.write");
-      </SCRIPT>
     ]]>  
   </Content>
   <Content type="html" view="canvas"> 
     <![CDATA[
       Hello, big world!
-      msg.createDismissibleMessage("Please close me when you're done reading me.");
     ]]> 
   </Content>
 </Module>
