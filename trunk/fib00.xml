@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Fib00"> 
+  <Require feature="opensocial-0.8" />
+  <Require feature="minimessage"/>
+  </ModulePrefs>
+  <Content type="html" view="home">
+    <![CDATA[
+		<SCRIPT type="text/javascript"> 
+		function gen_fib0()
+		{var t;
+		 var num1=eval(document.getElementById("num1").value);//parseInt(.), parseFloat(.)
+		 var num2=eval(document.getElementById("num2").value);
+		 var cntmax=eval(document.getElementById("cntmax").value);
+			//document.getElementById("outstr").value=null;
+			if(document.getElementById("fl_iter").checked){
+				document.getElementById("outstr").value=0+'\t'+num1+'\n'+1+'\t'+num2+'\n';
+			}else{
+				document.getElementById("outstr").value=num1+'\n'+num2+'\n';
+			}
+			for(var i=0;i<cntmax;i++){
+				t=num2;
+				num2+=num1;
+				num1=t;
+				if(document.getElementById("fl_iter").checked){
+					document.getElementById("outstr").value+=(i+2)+'\t';
+				}
+				document.getElementById("outstr").value+=num2+'\n';
+				//document.write("<br/>"+num2);
+			}
+		}
+		</SCRIPT>
+		
+		<h1> Fibonacci numbers </h1>
+		(Generates a sequence of Fibonacci numbers)
+		<br/>
+		<br/>
+
+		<table>
+			<tr>
+				<td>1st number</td>  <td>2nd number</td> 
+			</tr>
+			<tr>
+				<td><input type="text" class="myinp" name="num1" id="num1" value="0" size="8" maxlength="6"/></td>  
+				<td><input type="text" class="myinp" name="num2" id="num2" value="1" size="8" maxlength="6"/></td>
+			</tr>
+			<tr>
+				<td>#iterations</td>  
+				<td><input type="text" class="myinp" name="cntmax" id="cntmax" value="20" size="8" maxlength="6"/></td>
+				<td><input type="checkbox" name="fl_iter" id="fl_iter" value="yes"/> print iter. number</td>
+			</tr>
+		</table>
+		<br/>
+
+
+		<input type="button" name="genfib" value="Generate" onClick="gen_fib0()"/> <br/>
+
+		<textarea name="outstr" id="outstr" cols="30" rows="50" readonly="yes"> output will come here </textarea>
+    ]]>  
+</Module>
