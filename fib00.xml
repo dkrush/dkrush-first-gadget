@@ -27,7 +27,7 @@
                if(cntmax<0){cntmax=0;}
                if(cntmax<0){cntmax=0;}
                document.getElementById("cntmax").value=cntmax;
-               document.getElementById("outstr").rows=Math.min(30,Math.max(10,cntmax+4));
+               document.getElementById("outstr").rows=Math.min(12,Math.max(10,cntmax+4));
                //document.getElementById("outstr").value=null;
                if(document.getElementById("fl_iter").checked){
                   document.getElementById("outstr").value=0+'\t'+num1+'\n'+1+'\t'+num2+'\n';
@@ -89,7 +89,7 @@
                  var cntmax=eval(document.getElementById("cntmax").value);
                  if(cntmax<0){cntmax=0;}
                  document.getElementById("cntmax").value=cntmax;
-                 document.getElementById("outstr").rows=Math.min(30,Math.max(10,cntmax+4));
+                 document.getElementById("outstr").rows=Math.min(12,Math.max(10,cntmax+4));
                  //document.getElementById("outstr").value=null;
                  if(document.getElementById("fl_iter").checked){
                     document.getElementById("outstr").value=0+'\t'+num1+'\n'+1+'\t'+num2+'\n';
