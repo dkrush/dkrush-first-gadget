@@ -10,29 +10,104 @@
         INPUT.myinp {text-align: right}
       </STYLE>
       <SCRIPT type="text/javascript"> 
-        function gen_fib0()
-        {var t;
-         var num1=eval(document.getElementById("num1").value);//parseInt(.), parseFloat(.)
-         var num2=eval(document.getElementById("num2").value);
-         var cntmax=eval(document.getElementById("cntmax").value);
-           //document.getElementById("outstr").value=null;
-           if(document.getElementById("fl_iter").checked){
-              document.getElementById("outstr").value=0+'\t'+num1+'\n'+1+'\t'+num2+'\n';
-           }else{
-              document.getElementById("outstr").value=num1+'\n'+num2+'\n';
-           }
-           for(var i=0;i<cntmax;i++){
-              t=num2;
-              num2+=num1;
-              num1=t;
-              if(document.getElementById("fl_iter").checked){
-                 document.getElementById("outstr").value+=(i+2)+'\t';
+        		function gen_fib()
+              {
+                 if(document.getElementById("fl_prec").checked){
+                    gen_fib1();
+                 }else{
+                    gen_fib0();
+                 }
               }
-              document.getElementById("outstr").value+=num2+'\n';
-              //document.write("<br/>"+num2);
-           }
-        }
-      </SCRIPT>
+		
+              function gen_fib0()
+              {var t;
+               var num1=eval(document.getElementById("num1").value);//parseInt(.), parseFloat(.)
+               var num2=eval(document.getElementById("num2").value);
+               var cntmax=eval(document.getElementById("cntmax").value);
+               if(cntmax<0){cntmax=0;}
+               if(cntmax<0){cntmax=0;}
+               document.getElementById("cntmax").value=cntmax;
+               document.getElementById("outstr").rows=Math.min(30,Math.max(10,cntmax+4));
+               //document.getElementById("outstr").value=null;
+               if(document.getElementById("fl_iter").checked){
+                  document.getElementById("outstr").value=0+'\t'+num1+'\n'+1+'\t'+num2+'\n';
+               }else{
+                  document.getElementById("outstr").value=num1+'\n'+num2+'\n';
+               }
+               for(var i=0;i<cntmax;i++){
+                  t=num2;
+                  num2+=num1;
+                  num1=t;
+                  if(document.getElementById("fl_iter").checked){
+                       document.getElementById("outstr").value+=(i+2)+'\t';
+                  }
+                  document.getElementById("outstr").value+=num2+'\n';
+                  //document.write("<br/>"+num2);
+               }
+              }
+		
+              function add_long_dec(a,b)
+              {var res="";
+               var i;
+               var n1;
+               var n2;
+               var s=0;
+               var t=0;
+                 n1=a.length;
+                 n2=b.length;
+                 for(i=0;i<Math.min(n1,n2);i++){
+                    s=eval(a[n1-i-1])+eval(b[n2-i-1])+t;
+                    t=Math.floor(s/10);
+                    s%=10;
+                    res=s+res;
+                 }
+                 if(n1>n2){
+                    for(i=0;i<(n1-n2);i++){
+                       s=eval(a[n1-n2-i])+t;
+                       t=Math.floor(s/10);
+                       s%=10;
+                       res=s+res;
+                    }
+                 }else{
+                    if(n2>n1){
+                       for(i=0;i<(n2-n1);i++){
+                          s=eval(b[n2-n1-i])+t;
+                          t=Math.floor(s/10);
+                          s%=10;
+                          res=s+res;
+                       }
+                    }
+                 }
+                 if(t>0){res=t+res;}
+                 return res;
+              }
+              
+              function gen_fib1()
+                {var t;
+                 var num1=document.getElementById("num1").value;
+                 var num2=document.getElementById("num2").value;
+                 var cntmax=eval(document.getElementById("cntmax").value);
+                 if(cntmax<0){cntmax=0;}
+                 document.getElementById("cntmax").value=cntmax;
+                 document.getElementById("outstr").rows=Math.min(30,Math.max(10,cntmax+4));
+                 //document.getElementById("outstr").value=null;
+                 if(document.getElementById("fl_iter").checked){
+                    document.getElementById("outstr").value=0+'\t'+num1+'\n'+1+'\t'+num2+'\n';
+                 }else{
+                    document.getElementById("outstr").value=num1+'\n'+num2+'\n';
+                 }
+                 for(var i=0;i<cntmax;i++){
+                    t=num2;
+                    num2=add_long_dec(num1,num2);
+                    num1=t;
+                    if(document.getElementById("fl_iter").checked){
+                         document.getElementById("outstr").value+=(i+2)+'\t';
+                    }
+                    document.getElementById("outstr").value+=num2+'\n';
+                    //document.write("<br/>"+num2);
+                 }
+              }     
+        </SCRIPT>
 	  
 		
 		<!-- <h1> Fibonacci numbers </h1> -->
@@ -47,6 +122,7 @@
 			<tr>
 				<td><input type="text" class="myinp" name="num1" id="num1" value="0" size="8" maxlength="6"/></td>  
 				<td><input type="text" class="myinp" name="num2" id="num2" value="1" size="8" maxlength="6"/></td>
+				<td><input type="checkbox" name="fl_prec" id="fl_prec" value="yes"/> unlim. precision</td>
 			</tr>
 			<tr>
 				<td>#iterations</td>  
@@ -57,9 +133,8 @@
 		<br/>
 
 
-		<input type="button" name="genfib" value="Generate" onClick="gen_fib0()"/> <br/>
+		<input type="button" name="genfib" value="Generate" onClick="gen_fib()"/> <br/>
 
-		<textarea name="outstr" id="outstr" cols="30" rows="50" readonly="yes"> output will come here </textarea>
-    ]]>  
+		<textarea name="outstr" id="outstr" cols="40" rows="10" readonly="yes" wrap="off"> output will come here </textarea>    ]]>  
   </Content>
 </Module>
