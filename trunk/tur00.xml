@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs title="Fib00"> 
+  <ModulePrefs title="Tur00"> 
   <Require feature="opensocial-0.8" />
   <Require feature="minimessage"/>
   </ModulePrefs>
