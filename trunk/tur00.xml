@@ -6,6 +6,418 @@
   </ModulePrefs>
   <Content type="html" view="home">
     <![CDATA[
-    ]>>
+    
+    <STYLE type="text/css">
+		INPUT.myinp {text-align: right}
+		<!--based on source from http://javascript.about.com/library/blclmenu1.htm-->
+		.mC {width:500px; margin:5px; float:left;}
+		.mH {color:#60c; cursor:pointer;  font-weight:bold; border-top:1px solid #300;}
+		.mL {display:none; margin-bottom:10px;}
+		.mO {margin-left:10px; display:block;}   
+		<!--submenus-->
+		.smC {margin:15px; float:left;}
+		.smH {color:#000; cursor:pointer;  font-weight:bold;}
+		.smL {display:none; margin-bottom:10px;}
+		.smO {margin-left:10px; display:block;} 		
+	</STYLE>
+	<SCRIPT type="text/javascript"> 
+	<!--
+		//////////////////////////////////////////////////////////////
+		///////// general purpose ////////////////////////////////////
+		//////////////////////////////////////////////////////////////
+		// remove multiple, leading or trailing spaces, NIH
+		function trim(s) {
+			s = s.replace(/(^\s*)|(\s*$)/gi,"");
+			s = s.replace(/[ ]{2,}/gi," ");
+			s = s.replace(/\n /,"\n");
+			return s;
+		}
+		function echo(s){//print a debud message to the output
+			if(fl_dbg==false){return;}
+			if(s!=null && s!=undefined){
+				document.getElementById("outstr").value+=s;
+			}
+			document.getElementById("outstr").scrollTop = document.getElementById("outstr").scrollHeight;
+		}
+		function print(s){//print a message to the output
+			if(s!=null && s!=undefined){
+				document.getElementById("outstr").value+=s;
+			}
+			document.getElementById("outstr").scrollTop = document.getElementById("outstr").scrollHeight;
+		}
+		function clrscr(){//clear the output
+			document.getElementById("outstr").value="";
+		}
+		//////////////////////////////////////////////////////////////
+		////////// Turing machine ////////////////////////////////////
+		//////////////////////////////////////////////////////////////
+		function TMNode(c,st,sh){//constructor for TMNode
+			this.ch=c;
+			this.state=st;
+			this.shift=sh;
+		}
+		function TurMach() {//constructor
+			this.string="";//working string
+			this.cur_pos=0;//current position in a string
+			this.cur_state=0;//current state
+			this.cnt=0;//iterations counter
+			this.nwarn=0;//# warnings (during compilation)
+			this.nerr=0;//# errors (during compilation)
+			this.states=["beg","!"];//list of states
+			this.rules=new Array(2);//matrix of rules, each element is an object (char,state,shift)
+			for (var i = 0; i < 2; i++) {  
+			  this.rules[i] = new Array(0);  
+			  //for (j = 0; j < 4; j++) {a[i][j] = "[" + i + "," + j + "]";}  
+			}  
+		}
+
+		TurMach.prototype = {
+			//restore constructor
+			constructor: TurMach,
+			
+			restart: function (value){
+				this.string=value;
+				this.cur_pos=0;
+				this.cur_state=0;//beg
+				this.cnt=0;
+			},
+			
+			compile: function (value){
+				var cmds=value.split('\n');
+				var tmp;
+				var cmd=new Array(2);
+				var nstate0,nstate1;//states from command
+				var c0,c1;//chars from command
+				var nc0;
+				var shift;
+				var i,j;
+				this.nwarn=0;
+				this.nerr=0;
+				this.rules.length=2;
+				this.rules[0].length=0;
+				this.rules[1].length=0;
+				this.states.length=2;
+				for(i=0;i<cmds.length;i++){//for each command
+					tmp=cmds[i].replace(/\s/g,' ');
+					tmp=trim(cmds[i]);
+					if(tmp.length<1){continue;}
+					cmd=tmp.split(' ');
+					if(cmd.length>0){
+						if(cmd[0].length>1){
+							if(cmd[0].charAt(1)=='!'){
+								continue;//not a cmd, but a comment
+							}
+						}
+					}
+					if(cmd.length>2 ){print("warning[l."+(i+1)+"]: invalid command format; too many spaces\n");this.nwarn++;}
+					if(cmd.length==1){print("error[l."+(i+1)+"]: invalid command format; r.h.s missing\n");this.nerr++;continue;}
+					if(cmd[0].length<2){print("error[l."+(i+1)+"]: invalid command format (l.h.s)\n");this.nerr++;continue;}
+					if(cmd[1].length<3){print("error[l."+(i+1)+"]: invalid command format (r.h.s)\n");this.nerr++;continue;}
+					c0=cmd[0].charAt(0);c1=cmd[1].charAt(0);
+					nstate0=this.states.indexOf(cmd[0].substr(1));
+					nstate1=this.states.indexOf(cmd[1].substr(1,cmd[1].length-2));
+					shift=(cmd[1][(cmd[1].length)-1]).toUpperCase();
+					if(shift!='L' && shift!='R' && shift!='S'){
+						print("error[l."+(i+1)+"]: illegal shift char (m.b. L,R or S)\n");this.nerr++;continue;
+					}
+					echo((i+1)+" "+c0+" "+nstate0+" "+c1+" "+nstate1+" "+shift+"\n");
+					if(nstate0<0){//add new state
+						this.states.push(cmd[0].substr(1));
+						nstate0=this.states.indexOf(cmd[0].substr(1));
+						//this.rules.length=nstate0+1;
+						this.rules[nstate0] = new Array(0);  
+						//this.rules.push(new Array(0));
+					}
+					if(nstate1<0){//add new state
+						this.states.push(cmd[1].substr(1,cmd[1].length-2));
+						nstate1=this.states.indexOf(cmd[1].substr(1,cmd[1].length-2));
+						//this.rules.length=nstate1+1;
+						this.rules[nstate1] = new Array(0);
+						//this.rules.push(new Array(0));
+					}
+					nc0=c0.charCodeAt(0);
+					echo(nc0+" : "+nstate0+" => "+nstate1+" / "+this.rules.length+": "); for(j=0;j<this.rules.length;j++){echo(this.rules[j].length+",");} echo("\n");
+					//alert(this.rules[nstate0][nc0]);
+					if(this.rules[nstate0][nc0]==undefined){
+						this.rules[nstate0][nc0]=new TMNode(c1,nstate1,shift);
+					}else{
+						print("warning[l."+(i+1)+"]: duplicate command; skipped\n");this.nwarn++;
+					}
+				}
+				echo("\n-"+this.rules.length+"-\n");
+				for(i=0;i<this.rules.length;i++){
+					for(j=0;j<this.rules[i].length;j++){
+						if(this.rules[i][j]==undefined){
+						}else{
+							echo(j+" "+i+" => "+(this.rules[i][j].ch)+" "+(this.rules[i][j].state)+" "+(this.rules[i][j].shift)+"\n");
+						}
+					}
+				}
+				print(this.nerr+" errors, "+this.nwarn+" warnings\n");
+			},
+
+			step: function(){
+				var c;//current char
+				var nc;
+				var shift="";
+				if((this.cur_state)==1){print("terminating state reached\n");return false;}
+				this.cnt++;
+				if(this.string.length>0){
+					c=this.string.charAt(this.cur_pos);
+				}else{
+					c='_'; this.cur_pos=0;
+				}
+				nc=c.charCodeAt(0);
+				//alert(this.rules[this.cur_state][nc].ch);
+				if(this.rules[this.cur_state][nc]==undefined){
+					print("error: no appropriate command found ("+c+" "+this.states[this.cur_state]+" => ?); stopped\n");
+					return false;
+				}else{
+					c=this.rules[this.cur_state][nc].ch;
+					shift=this.rules[this.cur_state][nc].shift;
+					this.cur_state=this.rules[this.cur_state][nc].state;
+				}
+				//echo("new char \'"+c+"\'\n");
+				//this.string.charAt(this.cur_pos)=c;
+				this.string=this.string.substring(0,this.cur_pos)+c+this.string.substring(this.cur_pos+1);
+				if(shift=='L'){
+					if(this.cur_pos>0){
+						this.cur_pos--;
+					}else{
+						this.string='_'+this.string;
+					}
+				}else if(shift=='R'){
+					if(this.cur_pos>=(this.string.length-1)){
+						this.string=this.string+'_';
+					}
+					this.cur_pos++;
+				}
+				return true;
+			},
+
+			print: function(){
+				var str;
+				str=this.cnt+" "+this.states[this.cur_state]+" "+this.string;
+				return str;
+			}
+
+		};
+		
+		//////////////////////////////////////////////////////////////
+		/////////////// Interface ////////////////////////////////////
+		//////////////////////////////////////////////////////////////
+		
+		function OnCompile()
+		{
+			if(fl_dbg){alert("OnCompile");}
+			//document.getElementById("cmdstr").innerHTML="0beg obegr<cr/>1beg Ibegr<cr/>_beg !!s";
+			clrscr();
+			if(fl_dirty){
+				tm.compile(document.getElementById("cmdstr").value);
+				if(tm.nerr==0){fl_dirty=false;}
+			}
+			tm.restart(document.getElementById("instr").value);
+			UpdateControls();
+		}
+		
+		function OnStep()
+		{
+			//alert("OnStep()");
+			tm.step();
+			print(tm.print());print("\n");
+			if(fl_run==true){
+				if(tm.cur_state==1){
+					OnStart();//click 'Stop' button
+					print("terminating state reached\n");
+				}else{
+					my_timer=setTimeout("OnStep()",delay);
+				}
+			}
+		}
+		
+		function OnStart()
+		{
+			if(fl_run==true){
+				fl_run=false;
+				clearTimeout(my_timer);
+			}else{
+				if(fl_dirty==true){OnCompile();}
+				fl_run=true;
+				delay=parseInt(document.getElementById("delay_edit").value);
+				if(delay==NaN){delay=1000;}
+				//tm.restart(document.getElementById("instr").value);
+				OnStep();
+			}
+			UpdateControls();
+		}
+		
+		function OnCmdstrKeypress()
+		{
+			fl_dirty=true;
+			UpdateControls();
+		}
+		
+		function OnCollapsible(objID,hdrID,title) //based on source from http://javascript.about.com/library/blclmenu1.htm
+		{
+			if (!document.getElementById(objID)){return;}
+			if (!document.getElementById(hdrID)){return;}
+			var obj_style = document.getElementById(objID).style;
+			//obj_style.display = (obj_style.display == 'block')?'none':'block';
+			if(obj_style.display=="block"){//hide
+				obj_style.display="none";
+				document.getElementById(hdrID).innerHTML=title+" >";
+			}else{//show
+				obj_style.display="block";
+				document.getElementById(hdrID).innerHTML=title+" ^";
+			}
+		}		
+		
+		function UpdateControls()
+		{
+			if(fl_run==true){
+				document.getElementById("run_button").value="Stop";
+				document.getElementById("compile_button").disabled=true;
+				document.getElementById("step_button").disabled=true;
+			}else{
+				document.getElementById("run_button").value="Run";
+				document.getElementById("compile_button").disabled=false;
+				document.getElementById("step_button").disabled=false;
+			}
+			if(fl_dirty==true){
+				document.getElementById("compile_button").value="Compile";
+			}else{
+				document.getElementById("compile_button").value="Reset";
+			}
+		}
+		
+		function Init()
+		{
+			document.getElementById("cmdstr").value="0beg obegr\n1beg Ibegr\n_beg !!s";
+			document.getElementById("compile_button").style.width="90px";
+			document.getElementById("run_button").style.width="45px";
+			document.getElementById("step_button").style.width="45px";
+			document.getElementById("cls_button").style.width="45px";
+			document.getElementById("settings_button").style.width="100px";
+		}
+		
+		
+		/////////// global variables /////////////////////////////		
+		var tm=new TurMach();
+		var my_timer;//used for timer
+		var delay=1000;//delay between iterations
+		var fl_run=false;//is running
+		var fl_dirty=true;//is commands field changed
+		var fl_dbg=false;//display debug messages
+	-->
+	</SCRIPT>
+</HEAD>
+	  
+<BODY onload="Init()">
+		<!-- <h1> Turing machine </h1> -->
+		(Online Turing machine emulator)
+		<br/>
+		<br/>
+
+		<input type="button" name="compile_button" id="compile_button" value="Compile" onclick="OnCompile()"/>
+		<input type="button" name="run_button" id="run_button" value="Run" onclick="OnStart()"/>
+		<input type="button" name="step_button" id="step_button" value="Step" onclick="OnStep()"/>
+		<input type="button" name="cls_button" id="cls_button" value="Clear" onclick="clrscr()"/>
+		
+		<table>
+			<tr><th colspan="2" align="left"> <b>Input string</b> </th></tr>
+			<tr><th colspan="2" align="left"> <input type="text" name="instr" id="instr" size="95" value="10010"/> </th></tr>
+			<tr>
+				<td><b>Commands:</b></td>  <td><b>Output:</b></td> 
+			</tr>
+			<tr>
+				<td><textarea name="cmdstr" id="cmdstr" cols="30" rows="10" onkeypress="OnCmdstrKeypress()"></textarea></td>  
+				<td><textarea name="outstr" id="outstr" cols="50" rows="10" readonly="true">output comes here</textarea></td>
+			</tr>
+		</table>
+		<br/>
+		
+		<div class="mC">
+			<div class="mH" id="settings_head" onclick="OnCollapsible('settings_div','settings_head','Settings')">Settings ></div>
+			<div class="mL" id="settings_div">
+				Delay between iterations [ms]
+				<input type="text" class="myinp" name="delay_edit" id="delay_edit" value="1000" style="width:50px"/>
+			</div>
+		</div>
+		<div class="mC">
+			<div class="mH" id="help_head" onclick="OnCollapsible('help_div','help_head','Documentation')">Documentation ></div>
+			<div class="mL" id="help_div">
+				<h2>Online Turing Machine emulator, v.1.0</h2>
+				<div class="smH" id="help_doc_intro_head" onclick="OnCollapsible('help_doc_intro','help_doc_intro_head','Introduction')">Introduction ></div>
+				<div class="smL" id="help_doc_intro">
+					<p>
+					Turing Machine is an abstract device that contains:
+					<ul>
+						<li>a tape of infinite length (in both directions)</li>
+						<li>a head</li>
+						<li>a list of rules (commands)</li>
+					</ul>
+					The tape is divided into cells, each occupied by a single character (symbol of some alphabet). The head (or the machine as a whole) has an internal state ifluencing its operation. The head is always placed over some cell of the tape. At each iteration, the head does the following:
+					<ul>
+						<li>reads a character from the tape (from the cell under the head);</li>
+						<li>based on the character read and the internal state performs the action:
+							<ul>
+								<li>writes a new character (to the cell under the head);</li>
+								<li>changes the internal state;</li>
+								<li>moves 1 cell left or right.</li>
+							</ul>
+						</li>
+					</ul>
+					The character to be read is also called current character, the character to be written - new character.
+					The operation of the machine is completely governed by the list of commands and is unique and deterministic, i.e. the list of rules can be seen as a (partial) mapping from the space of pairs (cur.char;cur.state) to the space of triples (new.char;new.state;shift). Note, the machine has a finite number of possible states, a finite alphabet (thus, a finite list of commands) but an infinite storage (tape is infinitely long).<br/>
+					This finishes the description of the (deterministic) Turing machine. Though being simple, this machine has the same computational capabilities as many other abstract (e.g. cellular automata) and real computational devices, including a contemporary computer. In other words, any function computible by a contemporary computer can be computed by a Turing machine, sometimes at a cost of excessive time or storage requirements.
+					</p>
+				</div>
+				<div class="smH" id="help_doc_comm_head" onclick="OnCollapsible('help_doc_comm','help_doc_comm_head','Commands format')">Commands format ></div>
+				<div class="smL" id="help_doc_comm">
+					<p>
+						Commands have the following format:<br/>
+						&#60;left hand side (l.h.s.)&#62;&#60;delimiter&#62;&#60;right hand side (r.h.s)&#62;<br/>
+						&#60;current char&#62;&#60;current state&#62;&#60;delimiter&#62;&#60;new char&#62;&#60;new state&#62;&#60;shift&#62;<br/>
+						where<br/>
+						&#60;current char&#62; - character currently 'seen' by the working head;<br/>
+						&#60;current state&#62; - self-explanatory<br/>
+						&#60;new char&#62; - character to be written<br/>
+						&#60;delimiter&#62; - one or more spaces (&#38;&#35;32) or tabulations (&#38;&#35;09)<br/>
+						&#60;new state&#62; - self-explanatory<br/>
+						&#60;shift&#62; - one character denoting direction of head's move<br/>
+						<br/>
+						&#60;char&#62; - 1 printable character (e.g. 1,2,a,A,!,@,#,:, etc.), '_' represents empty character<br/>
+						&#60;state&#62; - any number of printable characters, cannot start with '!'<br/>
+						&#60;shift&#62; - 1 character: L(move left), R(move right) or S(stay here)<br>
+						<br/>
+					</p>
+				</div>
+				<div class="smH" id="help_doc_synt_head" onclick="OnCollapsible('help_doc_synt','help_doc_synt_head','Syntax')">Syntax ></div>
+				<div class="smL" id="help_doc_synt">
+					<p>
+						&#60;char&#62; and &#60;state&#62; are CASE SENSITIVE, &#60;shift&#62; is not. That is,<br/>
+						<code>aSTATE1 BSTATE2r</code><br/>
+						and<br/>
+						<code>Astate1 Bstate2R</code><br/>
+						are two different valid commands.<br/>
+						<br/>
+						There are two built-in states: '<code>beg</code>' and '<code>!</code>'. When the machine is started it is always in state 'beg' (the head points the leftmost char of the input string, the rest of the infinite tape is filled with empty symbols, denoted by '_'). 
+						'!' is a terminating state, i.e. execution stops when it is reached.<br/>
+						It is not hard to understand that a commands like <code>[&#60;some char&#62;! &#60;some r.h.s&#62;]</code> have no sense as they will be never executed.
+						That is why their validity is not checked during compilation. This can be utilised for commenting purposes, e.g.<br/>
+						<code>
+						a! this is a valid comment<br/>
+						/! another comment<br/>
+						+! next command terminates the program if the input starts with 0<br/>
+						0beg !0s<br/>
+						!! that's all about commenting<br/>
+						</code><br/>
+						NOTE: spaces (&#38;&#35;32) are used as delimiters and are not allowed as &#60;char&#62;, use '_' instead.
+					</p>
+				</div>
+			</div>
+		</div>
+    
+    ]]>
   </Content>
 </Module>
