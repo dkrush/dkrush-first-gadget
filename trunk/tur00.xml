@@ -197,9 +197,9 @@
 
 			print: function(){
 				var str;
-				str=this.cnt+" "+this.states[this.cur_state]+" "+this.string;
-            /*str=this.cnt+" ";
-            for(int i=0;i<this.cur_pos;i++){
+				//str=this.cnt+" "+this.states[this.cur_state]+" "+this.string;
+            str=this.cnt+" ";
+            /*for(int i=0;i<this.cur_pos;i++){
               str+=this.string.charAt(i);
             }
             str+="<"+this.states[this.cur_state]+">";
