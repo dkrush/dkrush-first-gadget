@@ -9,7 +9,7 @@
     
     <STYLE type="text/css">
 		INPUT.myinp {text-align: right}
-      TABLE.cent {text-align: right}
+      TABLE.cent {text-align: center}
 		<!--based on source from http://javascript.about.com/library/blclmenu1.htm-->
 		.mC {width:500px; margin:5px; float:left;}
 		.mH {color:#60c; cursor:pointer;  font-weight:bold; border-top:1px solid #300;}
