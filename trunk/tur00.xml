@@ -9,6 +9,7 @@
     
     <STYLE type="text/css">
 		INPUT.myinp {text-align: right}
+      TABLE.cent {text-align: right}
 		<!--based on source from http://javascript.about.com/library/blclmenu1.htm-->
 		.mC {width:500px; margin:5px; float:left;}
 		.mH {color:#60c; cursor:pointer;  font-weight:bold; border-top:1px solid #300;}
@@ -384,8 +385,8 @@
 				<div class="smL" id="help_doc_comm">
 					<p>
 						Commands have the following format:<br/>
-                  <table>
-                    <tr align="center">
+                  <table class="cent">
+                    <tr>
                       <td>&#60;left hand side (l.h.s.)&#62;</td> <td>&#60;delimiter&#62;</td> <td>&#60;right hand side (r.h.s)&#62;</td>
                     </tr>
                     <tr>
