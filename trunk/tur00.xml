@@ -384,8 +384,14 @@
 				<div class="smL" id="help_doc_comm">
 					<p>
 						Commands have the following format:<br/>
-						&#60;left hand side (l.h.s.)&#62;&#60;delimiter&#62;&#60;right hand side (r.h.s)&#62;<br/>
-						&#60;current char&#62;&#60;current state&#62;&#60;delimiter&#62;&#60;new char&#62;&#60;new state&#62;&#60;shift&#62;<br/>
+                  <table>
+                    <tr>
+                      <td>&#60;left hand side (l.h.s.)&#62;</td> <td>&#60;delimiter&#62;</td> <td>&#60;right hand side (r.h.s)&#62;</td>
+                    </tr>
+                    <tr>
+                       <td>&#60;current char&#62;&#60;current state&#62;</td> <td>&#60;delimiter&#62;</td> <td>&#60;new char&#62;&#60;new state&#62;&#60;shift&#62;</td> 
+                    </tr>
+                  <table><br/>
 						where<br/>
 						&#60;current char&#62; - character currently 'seen' by the working head;<br/>
 						&#60;current state&#62; - self-explanatory<br/>
@@ -411,7 +417,7 @@
 						<br/>
 						There are two built-in states: '<code>beg</code>' and '<code>!</code>'. When the machine is started it is always in state 'beg' (the head points the leftmost char of the input string, the rest of the infinite tape is filled with empty symbols, denoted by '_'). 
 						'!' is a terminating state, i.e. execution stops when it is reached.<br/>
-						It is not hard to understand that a commands like <code>[&#60;some char&#62;! &#60;some r.h.s&#62;]</code> have no sense as they will be never executed.
+						It is not hard to understand that commands like <code>[&#60;some char&#62;! &#60;some r.h.s&#62;]</code> have no sense as they will be never executed.
 						That is why their validity is not checked during compilation. This can be utilised for commenting purposes, e.g.<br/>
 						<code>
 						a! this is a valid comment<br/>
