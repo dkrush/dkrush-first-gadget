@@ -385,7 +385,7 @@
 					<p>
 						Commands have the following format:<br/>
                   <table>
-                    <tr>
+                    <tr align="center">
                       <td>&#60;left hand side (l.h.s.)&#62;</td> <td>&#60;delimiter&#62;</td> <td>&#60;right hand side (r.h.s)&#62;</td>
                     </tr>
                     <tr>
