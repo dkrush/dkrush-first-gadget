@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="StrCalc00"> 
+  <Require feature="opensocial-0.8" />
+  <Require feature="minimessage"/>
+  </ModulePrefs>
+  <Content type="html" view="home">
+    <![CDATA[
+     <STYLE type="text/css">
+		INPUT.myinp {text-align: right; width: 300px}
+		INPUT.mybut {width: 25px; height: 25px}
+		<!--based on source from http://javascript.about.com/library/blclmenu1.htm-->
+		.mC {width:500px; margin:5px; float:left;}
+		.mH {color:#60c; cursor:pointer;  font-weight:bold; border-top:1px solid #300;}
+		.mL {display:none; margin-bottom:10px;}
+		.mO {margin-left:10px; display:block;}                    
+	</STYLE>
+	<SCRIPT type="text/javascript" src="str_math.js"></SCRIPT>
+	<SCRIPT type="text/javascript"> 
+	<!--
+	function refine_num(x)
+	{
+		x=x.replace(/\s+/,'');//trim spaces
+		x=x.replace(/^0+/,'');//trim leading zeros
+		if(x==""){x="0";}
+		return x;
+	}
+	function verifyInput()
+	{
+		var str=refine_num(document.getElementById("numedit").value);
+		if(str.length==0 || str==" "){return false;}
+		var patrn =  /^[0-9]+$/;
+		if(str.match(patrn)){return true;}
+		return false;
+	}	
+	function OnChangeNum()
+	{
+		//alert("OnChangeNum()");
+		if(verifyInput()==true){
+			var str=refine_num(document.getElementById("numedit").value);
+			document.getElementById("echo").innerHTML="  "+str.length+" digit(s)";
+		}else{
+			document.getElementById("echo").innerHTML="invalid number";
+		}
+	}
+	function OnAddButton()
+	{
+		//alert("ADD");
+		if(verifyInput()!=true){return;}
+		var tmp=document.getElementById("stackarea").value;
+		document.getElementById("stackarea").value="+"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
+	}
+	function OnSubButton()
+	{
+		//alert("SUB");
+		if(verifyInput()!=true){return;}
+		var tmp=document.getElementById("stackarea").value;
+		document.getElementById("stackarea").value="-"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
+	}
+	function OnMulButton()
+	{
+		//alert("MUL");
+		if(verifyInput()!=true){return;}
+		var tmp=document.getElementById("stackarea").value;
+		document.getElementById("stackarea").value="*"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
+	}
+	function OnDivButton()
+	{
+		//alert("DIV");
+		if(verifyInput()!=true){return;}
+		var tmp=document.getElementById("stackarea").value;
+		document.getElementById("stackarea").value="/"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
+	}
+	function OnModButton()
+	{
+		//alert("MOD");
+		if(verifyInput()!=true){return;}
+		var tmp=document.getElementById("stackarea").value;
+		document.getElementById("stackarea").value="%"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
+	}
+	function OnPowButton()
+	{
+		//alert("POW");
+		if(verifyInput()!=true){return;}
+		var tmp=document.getElementById("stackarea").value;
+		document.getElementById("stackarea").value="^"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
+	}
+	function OnLeButton()
+	{
+		//alert("Le");
+		if(verifyInput()!=true){return;}
+		var tmp=document.getElementById("stackarea").value;
+		document.getElementById("stackarea").value="<"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
+	}
+	function OnEquButton()
+	{
+		//alert("EQU");
+		if(verifyInput()!=true){
+			document.getElementById("echo").innerHTML="invalid number";
+			return;
+		}
+		document.getElementById("echo").innerHTML="processing...";
+		var arr=new Array(0);
+		var res="0";
+		arr=document.getElementById("stackarea").value.split('\n');
+		res=document.getElementById("numedit").value;
+		//alert("OnEquButton:\nres= "+res+"\narr: "+arr);
+		if(res==undefined || res==""){res="0";}
+		//alert("OnEquButton:\n"+arr.length+": "+arr.toString());
+		while(arr.length>1){
+			//alert("OnEquButton:\narr["+arr.length+"]: "+arr);
+			n_add=n_cmp=0;
+			switch(arr[0]){
+			case "+":arr.shift();res=str_add(res,arr[0]);break;
+			case "-":arr.shift();res=str_sub(arr[0],res);break;
+			case "*":arr.shift();res=str_mul(res,arr[0]);break;
+			case "/":arr.shift();res=str_div(arr[0],res);break;
+			case "%":arr.shift();res=str_mod(arr[0],res);break;
+			case "^":arr.shift();res=str_pow(arr[0],res);break;
+			case "<":arr.shift();res=str_le(arr[0],res);break;
+			default:arr.shift();break;
+			}
+			arr.shift();
+		}
+		document.getElementById("numedit").value=res;
+		document.getElementById("stackarea").value="";
+		document.getElementById("echo").innerHTML="  "+res.length+" digit(s)";
+		document.getElementById("echo1").innerHTML="  "+n_add+" addition(s)";
+		document.getElementById("echo2").innerHTML="  "+n_cmp+" comparison(s)";
+	}
+	function OnClrButton(){	
+		document.getElementById("numedit").value="0"; 
+		document.getElementById("echo1").innerHTML="";
+		document.getElementById("echo2").innerHTML="";
+		OnChangeNum();
+	}
+	
+	function OnButton0(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="0";}else{document.getElementById("numedit").value+="0";} OnChangeNum();}
+	function OnButton1(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="1";}else{document.getElementById("numedit").value+="1";} OnChangeNum();}
+	function OnButton2(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="2";}else{document.getElementById("numedit").value+="2";} OnChangeNum();}
+	function OnButton3(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="3";}else{document.getElementById("numedit").value+="3";} OnChangeNum();}
+	function OnButton4(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="4";}else{document.getElementById("numedit").value+="4";} OnChangeNum();}
+	function OnButton5(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="5";}else{document.getElementById("numedit").value+="5";} OnChangeNum();}
+	function OnButton6(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="6";}else{document.getElementById("numedit").value+="6";} OnChangeNum();}
+	function OnButton7(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="7";}else{document.getElementById("numedit").value+="7";} OnChangeNum();}
+	function OnButton8(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="8";}else{document.getElementById("numedit").value+="8";} OnChangeNum();}
+	function OnButton9(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="9";}else{document.getElementById("numedit").value+="9";} OnChangeNum();}
+	-->
+	</SCRIPT>
+
+
+
+<input type="text" class="myinp" id="numedit" onChange="OnChangeNum()" onKeyUp="OnChangeNum()"/> <br/>
+
+<table>
+<tr>
+<td/>
+<td><input type="button" class="mybut" id="0btn" value="0" onclick="OnButton0()"/></td>
+<td><input type="button" class="mybut" id="Cbtn" value="C" onclick="OnClrButton()"/></td>
+<td/><td/>
+<td><input type="button" class="mybut" id="lesbtn" value="<" onclick="OnLeButton()"/></td>
+<td><input type="button" class="mybut" id="equbtn" value="=" onclick="OnEquButton()"/></td>
+<td><p id="echo" style="text-align:right"/></td>
+</tr>
+<tr>
+<td><input type="button" class="mybut" id="1btn" value="1" onclick="OnButton1()"/></td>
+<td><input type="button" class="mybut" id="2btn" value="2" onclick="OnButton2()"/></td>
+<td><input type="button" class="mybut" id="3btn" value="3" onclick="OnButton3()"/></td>
+<td/><td/>
+<td><input type="button" class="mybut" id="addbtn" value="+" onclick="OnAddButton()"/></td>
+<td><input type="button" class="mybut" id="subbtn" value="-" onclick="OnSubButton()"/></td>
+<td><p id="echo1" style="text-align:right"/></td>
+</tr>
+<tr>
+<td><input type="button" class="mybut" id="4btn" value="4" onclick="OnButton4()"/></td>
+<td><input type="button" class="mybut" id="5btn" value="5" onclick="OnButton5()"/></td>
+<td><input type="button" class="mybut" id="6btn" value="6" onclick="OnButton6()"/></td>
+<td/><td/>
+<td><input type="button" class="mybut" id="mulbtn" value="*" onclick="OnMulButton()"/></td>
+<td><input type="button" class="mybut" id="powbtn" value="^" onclick="OnPowButton()"/></td>
+<td><p id="echo2" style="text-align:right"/></td>
+</tr>
+<tr>
+<td><input type="button" class="mybut" id="7btn" value="7" onclick="OnButton7()"/></td>
+<td><input type="button" class="mybut" id="8btn" value="8" onclick="OnButton8()"/></td>
+<td><input type="button" class="mybut" id="9btn" value="9" onclick="OnButton9()"/></td>
+<td/><td/>
+<td><input type="button" class="mybut" id="divbtn" value="/" onclick="OnDivButton()"/></td>
+<td><input type="button" class="mybut" id="modbtn" value="%" onclick="OnModButton()"/></td>
+</tr>
+</table>
+
+<textarea id="stackarea" cols="30" rows="5" readonly="yes"></textarea>
+	]]>  
+  </Content>
+</Module>
