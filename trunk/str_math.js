@@ -14,6 +14,8 @@ function str_le(x,y)
 	//alert("str_le("+x+","+y+")");
 	n_cmp++;
 	if(x=="NaN" || y=="NaN"){return 0;}
+   if(x=="INF"){return 0;} 
+   if(y=="INF"){return 1;}   
 	if(x==undefined){x="0";}
 	if(y==undefined){y="0";}
 	nx=x.length;
@@ -38,6 +40,8 @@ function str_leq(x,y)
 	//alert("str_leq("+x+","+y+")");
 	n_cmp++;
 	if(x=="NaN" || y=="NaN"){return 0;}
+   if(x=="INF" && y!="INF"){return 0;} 
+   if(y=="INF"){return 1;} 
 	if(x==undefined){x="0";}
 	if(y==undefined){y="0";}
 	nx=x.length;
@@ -61,22 +65,23 @@ function str_add(x,y)
  var tmp;
 	//alert("str_add("+x+","+y+")");
 	n_add++;
+	//return x+"+"+y;
 	if(x=="NaN" || y=="NaN"){return "NaN";}
+   if(x=="INF" || y=="INF"){return "INF";} 
 	if(x=="0"){return y;}
 	if(y=="0"){return x;}
 	if(x==undefined){x="0";}
 	if(y==undefined){y="0";}
 	nx=x.length-1;
 	ny=y.length-1;
-	//n=Math.max(nx,ny);
 	//alert("str_add:\nnx="+nx+"  ny="+ny);
 	z=0;
 	while(z>0 || nx>=0 || ny>=0){
+		//alert("["+nx+","+ny+"]"+z+"/"+res);
 		if(nx>=0){z+=parseInt(x.charAt(nx));}
 		if(ny>=0){z+=parseInt(y.charAt(ny));}
-		//z+=parseInt(x.charAt(nx))+parseInt(y.charAt(ny));
 		if(z>9){
-			tmp=z+"x";
+			tmp=String(z)+"x";
 			res=tmp.charAt(1)+res;
 			z=parseInt(tmp.charAt(0));//parseInt(z.charAt(0));
 		}else{
@@ -86,8 +91,6 @@ function str_add(x,y)
 		nx--;
 		ny--;
 	}
-	//while(nx>=0){res=x.charAt(nx)+res;nx--;}
-	//while(ny>=0){res=y.charAt(ny)+res;ny--;}
 	//alert("str_add("+x+","+y+")= "+res);
 	return res;
 }
@@ -99,6 +102,7 @@ function str_sub(x,y)
 	//alert("str_sub("+x+","+y+")");
 	n_add++;
 	if(x=="NaN" || y=="NaN"){return "NaN";}
+   if(x=="INF" || y=="INF"){return "INF";}  
 	if(x==undefined){x="0";}
 	if(y==undefined){y="0";}
 	if(y=="0"){return x;}
@@ -129,6 +133,7 @@ function str_mul(x,y)
 	if(x==undefined){x="0";}
 	if(y==undefined){y="0";}
 	if(x=="NaN" || y=="NaN"){return "NaN";}
+   if(x=="INF" || y=="INF"){return "INF";}  
 	if(x=="0" || y=="0"){return "0";}
 	if(x=="1"){return y;}
 	if(y=="1"){return x;}
