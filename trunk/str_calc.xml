@@ -17,10 +17,11 @@
 	</STYLE>
 	<SCRIPT type="text/javascript" src="//dkrush-first-gadget.googlecode.com/svn/trunk/str_math.js"></SCRIPT>
 	<SCRIPT type="text/javascript"> 
-	<!--
+	  <!--
 	function refine_num(x)
 	{
 		x=x.replace(/\s+/,'');//trim spaces
+		//x=x.replace(/\n+/,'');//trim \n
 		x=x.replace(/^0+/,'');//trim leading zeros
 		if(x==""){x="0";}
 		return x;
@@ -58,28 +59,30 @@
 			return;
 		}
 		document.getElementById("echo").innerHTML="processing...";
-		var arr=new Array(0);
+		var arr=new Array();
 		var res="0";
 		arr=document.getElementById("stackarea").value.split('\n');
 		res=document.getElementById("numedit").value;
-		//alert("OnEquButton:\nres= "+res+"\narr: "+arr);
+		//alert("OnEquButton:\nres= "+res+"\narr: "+arr.toString());
 		if(res==undefined || res==""){res="0";}
 		//alert("OnEquButton:\n"+arr.length+": "+arr.toString());
 		n_add=n_cmp=0;
 		while(arr.length>1){
+			//res=res+"+"+arr[1];
 			//alert("OnEquButton:\narr["+arr.length+"]: "+arr);
-			switch(arr[0]){
-			case "+":arr.shift();res=str_add(res,arr[0]);break;
-			case "-":arr.shift();res=str_sub(arr[0],res);break;
-			case "*":arr.shift();res=str_mul(res,arr[0]);break;
-			case "/":arr.shift();res=str_div(arr[0],res);break;
-			case "%":arr.shift();res=str_mod(arr[0],res);break;
-			case "^":arr.shift();res=str_pow(arr[0],res);break;
-			case "<":arr.shift();res=str_le(arr[0],res);break;
-			default:arr.shift();break;
+			switch(arr[0].charAt(0)){
+			case "+":res=str_add(refine_num(arr[1]),res);break;
+			case "-":res=str_sub(refine_num(arr[1]),res);break;
+			case "*":res=str_mul(refine_num(arr[1]),res);break;
+			case "/":res=str_div(refine_num(arr[1]),res);break;
+			case "%":res=str_mod(refine_num(arr[1]),res);break;
+			case "^":res=str_pow(refine_num(arr[1]),res);break;
+			case "<":res=str_le(refine_num(arr[1]),res);break;
+			break;
 			}
-			arr.shift();
+			arr.shift();arr.shift();
 		}
+		//res=str_add(res,arr[1]);
 		document.getElementById("numedit").value=res;
 		document.getElementById("stackarea").value="";
 		document.getElementById("echo").innerHTML="  "+res.length+" dig";
@@ -120,8 +123,8 @@
 	function OnButton7(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="7";}else{document.getElementById("numedit").value+="7";} OnChangeNum();}
 	function OnButton8(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="8";}else{document.getElementById("numedit").value+="8";} OnChangeNum();}
 	function OnButton9(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="9";}else{document.getElementById("numedit").value+="9";} OnChangeNum();}
-	-->
-	</SCRIPT>
+	-->	
+   </SCRIPT>
 </HEAD>
 
 <BODY>
