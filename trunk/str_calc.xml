@@ -43,54 +43,12 @@
 			document.getElementById("echo").innerHTML="invalid number";
 		}
 	}
-	function OnAddButton()
+	function OnMathOp(x)
 	{
-		//alert("ADD");
 		if(verifyInput()!=true){return;}
 		var tmp=document.getElementById("stackarea").value;
-		document.getElementById("stackarea").value="+"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
-	}
-	function OnSubButton()
-	{
-		//alert("SUB");
-		if(verifyInput()!=true){return;}
-		var tmp=document.getElementById("stackarea").value;
-		document.getElementById("stackarea").value="-"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
-	}
-	function OnMulButton()
-	{
-		//alert("MUL");
-		if(verifyInput()!=true){return;}
-		var tmp=document.getElementById("stackarea").value;
-		document.getElementById("stackarea").value="*"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
-	}
-	function OnDivButton()
-	{
-		//alert("DIV");
-		if(verifyInput()!=true){return;}
-		var tmp=document.getElementById("stackarea").value;
-		document.getElementById("stackarea").value="/"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
-	}
-	function OnModButton()
-	{
-		//alert("MOD");
-		if(verifyInput()!=true){return;}
-		var tmp=document.getElementById("stackarea").value;
-		document.getElementById("stackarea").value="%"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
-	}
-	function OnPowButton()
-	{
-		//alert("POW");
-		if(verifyInput()!=true){return;}
-		var tmp=document.getElementById("stackarea").value;
-		document.getElementById("stackarea").value="^"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
-	}
-	function OnLeButton()
-	{
-		//alert("Le");
-		if(verifyInput()!=true){return;}
-		var tmp=document.getElementById("stackarea").value;
-		document.getElementById("stackarea").value="<"+'\n'+document.getElementById("numedit").value+'\n'+tmp;
+		document.getElementById("stackarea").value=x+'\n'+document.getElementById("numedit").value+'\n'+tmp;
+		document.getElementById("numedit").value="0"; 
 	}
 	function OnEquButton()
 	{
@@ -107,9 +65,9 @@
 		//alert("OnEquButton:\nres= "+res+"\narr: "+arr);
 		if(res==undefined || res==""){res="0";}
 		//alert("OnEquButton:\n"+arr.length+": "+arr.toString());
+		n_add=n_cmp=0;
 		while(arr.length>1){
 			//alert("OnEquButton:\narr["+arr.length+"]: "+arr);
-			n_add=n_cmp=0;
 			switch(arr[0]){
 			case "+":arr.shift();res=str_add(res,arr[0]);break;
 			case "-":arr.shift();res=str_sub(arr[0],res);break;
@@ -124,12 +82,29 @@
 		}
 		document.getElementById("numedit").value=res;
 		document.getElementById("stackarea").value="";
-		document.getElementById("echo").innerHTML="  "+res.length+" digit(s)";
-		document.getElementById("echo1").innerHTML="  "+n_add+" addition(s)";
-		document.getElementById("echo2").innerHTML="  "+n_cmp+" comparison(s)";
+		document.getElementById("echo").innerHTML="  "+res.length+" dig";
+		document.getElementById("echo1").innerHTML="  "+n_add+" add";
+		document.getElementById("echo2").innerHTML="  "+n_cmp+" cmp";
 	}
 	function OnClrButton(){	
 		document.getElementById("numedit").value="0"; 
+		document.getElementById("echo1").innerHTML="";
+		document.getElementById("echo2").innerHTML="";
+		OnChangeNum();
+	}
+	function OnRepButton(){	
+		var str=document.getElementById("stackarea").value;
+		var n=str.indexOf('\n');
+		if(n>=0){
+			n++;
+			if(str.indexOf('\n',n)>=0){
+				document.getElementById("numedit").value=str.substring(n,str.indexOf('\n',n));
+			}else{
+				document.getElementById("numedit").value=str.substring(n);
+			}
+		}else{
+			document.getElementById("numedit").value="0"; 
+		}
 		document.getElementById("echo1").innerHTML="";
 		document.getElementById("echo2").innerHTML="";
 		OnChangeNum();
@@ -147,18 +122,18 @@
 	function OnButton9(){if(refine_num(document.getElementById("numedit").value)=="0"){document.getElementById("numedit").value="9";}else{document.getElementById("numedit").value+="9";} OnChangeNum();}
 	-->
 	</SCRIPT>
+</HEAD>
 
-
-
+<BODY>
 <input type="text" class="myinp" id="numedit" onChange="OnChangeNum()" onKeyUp="OnChangeNum()"/> <br/>
 
 <table>
 <tr>
-<td/>
-<td><input type="button" class="mybut" id="0btn" value="0" onclick="OnButton0()"/></td>
 <td><input type="button" class="mybut" id="Cbtn" value="C" onclick="OnClrButton()"/></td>
+<td><input type="button" class="mybut" id="0btn" value="0" onclick="OnButton0()"/></td>
+<td><input type="button" class="mybut" id="Rbtn" value="R" onclick="OnRepButton()"/></td>
 <td/><td/>
-<td><input type="button" class="mybut" id="lesbtn" value="<" onclick="OnLeButton()"/></td>
+<td><input type="button" class="mybut" id="lesbtn" value="<" onclick="OnMathOp('<')"/></td>
 <td><input type="button" class="mybut" id="equbtn" value="=" onclick="OnEquButton()"/></td>
 <td><p id="echo" style="text-align:right"/></td>
 </tr>
@@ -167,8 +142,8 @@
 <td><input type="button" class="mybut" id="2btn" value="2" onclick="OnButton2()"/></td>
 <td><input type="button" class="mybut" id="3btn" value="3" onclick="OnButton3()"/></td>
 <td/><td/>
-<td><input type="button" class="mybut" id="addbtn" value="+" onclick="OnAddButton()"/></td>
-<td><input type="button" class="mybut" id="subbtn" value="-" onclick="OnSubButton()"/></td>
+<td><input type="button" class="mybut" id="addbtn" value="+" onclick="OnMathOp('+')"/></td>
+<td><input type="button" class="mybut" id="subbtn" value="-" onclick="OnMathOp('-')"/></td>
 <td><p id="echo1" style="text-align:right"/></td>
 </tr>
 <tr>
@@ -176,8 +151,8 @@
 <td><input type="button" class="mybut" id="5btn" value="5" onclick="OnButton5()"/></td>
 <td><input type="button" class="mybut" id="6btn" value="6" onclick="OnButton6()"/></td>
 <td/><td/>
-<td><input type="button" class="mybut" id="mulbtn" value="*" onclick="OnMulButton()"/></td>
-<td><input type="button" class="mybut" id="powbtn" value="^" onclick="OnPowButton()"/></td>
+<td><input type="button" class="mybut" id="mulbtn" value="*" onclick="OnMathOp('*')"/></td>
+<td><input type="button" class="mybut" id="powbtn" value="^" onclick="OnMathOp('^')"/></td>
 <td><p id="echo2" style="text-align:right"/></td>
 </tr>
 <tr>
@@ -185,12 +160,12 @@
 <td><input type="button" class="mybut" id="8btn" value="8" onclick="OnButton8()"/></td>
 <td><input type="button" class="mybut" id="9btn" value="9" onclick="OnButton9()"/></td>
 <td/><td/>
-<td><input type="button" class="mybut" id="divbtn" value="/" onclick="OnDivButton()"/></td>
-<td><input type="button" class="mybut" id="modbtn" value="%" onclick="OnModButton()"/></td>
+<td><input type="button" class="mybut" id="divbtn" value="/" onclick="OnMathOp('/')"/></td>
+<td><input type="button" class="mybut" id="modbtn" value="%" onclick="OnMathOp('%')"/></td>
 </tr>
 </table>
 
-<textarea id="stackarea" cols="30" rows="5" readonly="yes"></textarea>
-	]]>  
+<textarea id="stackarea" cols="30" rows="5" readonly="yes"></textarea>	
+]]>  
   </Content>
 </Module>
