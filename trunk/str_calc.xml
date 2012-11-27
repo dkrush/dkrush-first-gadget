@@ -15,7 +15,7 @@
 		.mL {display:none; margin-bottom:10px;}
 		.mO {margin-left:10px; display:block;}                    
 	</STYLE>
-	<SCRIPT type="text/javascript" src="str_math.js"></SCRIPT>
+	<SCRIPT type="text/javascript" src="http://dkrush-first-gadget.googlecode.com/svn/trunk/str_math.js"></SCRIPT>
 	<SCRIPT type="text/javascript"> 
 	<!--
 	function refine_num(x)
