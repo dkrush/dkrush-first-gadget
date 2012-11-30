@@ -232,12 +232,12 @@
 		function OnStep()
 		{
 			//alert("OnStep()");
-			tm.step();
+			var res=tm.step();
 			print(tm.print());print("\n");
 			if(fl_run==true){
-				if(tm.cur_state==1){
+				if(res!=true){
 					OnStart();//click 'Stop' button
-					print("terminating state reached\n");
+					//print("terminating state reached\n");
 				}else{
 					my_timer=setTimeout("OnStep()",delay);
 				}
