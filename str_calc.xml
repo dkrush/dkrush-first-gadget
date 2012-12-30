@@ -132,6 +132,7 @@
 </HEAD>
 
 <BODY>
+Online Integer Calulator v.1.2
 <input type="text" class="myinp" id="numedit" onChange="OnChangeNum()" onKeyUp="OnChangeNum()"/> <br/>
 
 <table>
