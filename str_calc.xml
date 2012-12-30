@@ -51,15 +51,9 @@
 		document.getElementById("stackarea").value=x+'\n'+document.getElementById("numedit").value+'\n'+tmp;
 		document.getElementById("numedit").value="0"; 
 	}
-	function OnEquButton()
-	{
-		//alert("EQU");
-		if(verifyInput()!=true){
-			document.getElementById("echo").innerHTML="invalid number";
-			return;
-		}
-		document.getElementById("echo").innerHTML="processing...";
-		var arr=new Array();
+  function onCompute()
+  {
+    var arr=new Array();
 		var res="0";
 		arr=document.getElementById("stackarea").value.split('\n');
 		res=document.getElementById("numedit").value;
@@ -88,6 +82,16 @@
 		document.getElementById("echo").innerHTML="  "+res.length+" dig";
 		document.getElementById("echo1").innerHTML="  "+n_add+" add";
 		document.getElementById("echo2").innerHTML="  "+n_cmp+" cmp";
+  }
+	function OnEquButton()
+	{
+		//alert("EQU");
+		if(verifyInput()!=true){
+			document.getElementById("echo").innerHTML="invalid number";
+			return;
+		}
+		document.getElementById("echo").innerHTML="processing...";
+     onCompute();
 	}
 	function OnClrButton(){	
 		document.getElementById("numedit").value="0"; 
