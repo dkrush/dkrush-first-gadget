@@ -91,7 +91,7 @@
 			return;
 		}
 		document.getElementById("echo").innerHTML="processing...";
-     window.setTimeout(onCompute(),0);
+     window.setTimeout(function(){onCompute()},0);
 	}
 	function OnClrButton(){	
 		document.getElementById("numedit").value="0"; 
