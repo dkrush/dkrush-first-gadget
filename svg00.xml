@@ -392,7 +392,7 @@
 			<line x1='-0.43' y1='0.6' x2='-0.25' y2='0.6'/>
 		</g></a>
 		
-		<a xlink:href="https://sites.google.com/site/dkrushinsky/contact" target="_blank">
+		<a xlink:href="https://sites.google.com/site/dkrushinsky/contact" target="_top">
 		<g id='post_inst'  transform='translate(330 205) scale(15)' pointer-events="all" onmouseover='post_act(evt)' onmouseout='post_pas(evt)' stroke='black' stroke-width='0.03' fill='white'>
 			<g id='post_shadow'  transform='scale(1 -0.25) skewX(30)' stroke='none' fill='none' stroke-width='0.03'>
 				<g transform='translate(0 0.71)'>
