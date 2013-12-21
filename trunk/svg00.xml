@@ -377,9 +377,9 @@
 		</g>
 	</defs>
 	<g id='mainfrm' transform='matrix(1 0 0 -1 0 320)'>
-		<g id='frame' stroke-width='1'>
-			<rect x='1' y='1' width='478' height='318' stroke='orange' fill='none'/>
-			<path d='M50 0 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20' stroke='orange'/>
+		<g id='frame' stroke-width='1' stroke='none'>
+			<rect x='1' y='1' width='478' height='318' fill='none'/>
+			<path d='M50 0 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20'/>
 		</g>
 		
 		<a xlink:href="http://sites.google.com/site/dkrushinsky/" target="_blank">
