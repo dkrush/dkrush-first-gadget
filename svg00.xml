@@ -6,8 +6,9 @@
   </ModulePrefs>
   <Content type="html" view="home">
     <![CDATA[
+      <p>
 		<svg width="480px" height="320px" viewBox="0 0 480 320" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.1">
-	<script type="application/ecmascript"> <![CDATA[
+	<script type="application/ecmascript">
 		function home_click(evt) {
 			var home = document.getElementById("home_inst1");//evt.target;
 			/*var parent = home;
@@ -127,7 +128,7 @@
 			elem = document.getElementById("inst_calc_btns");	elem.setAttribute("fill","none");elem.setAttribute("stroke","black");
 			elem = document.getElementById("inst_calc_num");	elem.setAttribute("fill","none");elem.setAttribute("stroke","none");
 		}
-	]]> </script>
+	</script>
 	<defs>
 		<filter id="fiBlur" filterUnits="objectBoundingBox">
 			<feGaussianBlur in="SourceGraphic" stdDeviation="0.2"/>
@@ -498,7 +499,7 @@
 		</g></a>
 		
 	</g>
-</svg>
+</svg></p>
     ]]>  
 	</Content>
 </Module>
