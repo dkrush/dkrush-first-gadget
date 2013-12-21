@@ -7,7 +7,7 @@
   <Content type="html" view="home">
     <![CDATA[
       <p>
-		<svg width="480px" height="320px" viewBox="0 0 480 320" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.1">
+		<svg width="480px" height="320px" viewBox="0 0 480 320" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
 	<script type="application/ecmascript">
 		function home_click(evt) {
 			var home = document.getElementById("home_inst1");//evt.target;
