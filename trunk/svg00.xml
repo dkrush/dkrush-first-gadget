@@ -382,7 +382,7 @@
 			<path d='M50 0 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20 m50 -20 l0 10 m50 -10 l0 20' stroke='orange'/>
 		</g>
 		
-		<a xlink:href="http://sites.google.com/site/dkrushinsky/">
+		<a xlink:href="http://sites.google.com/site/dkrushinsky/" target="_blank">
 		<g id='home_inst'  transform='translate(240 200) scale(70)' pointer-events="all" onmouseover='home_act(evt)' onmouseout='home_pas(evt)' stroke='black' stroke-width='0.01' fill='none'>
 			<use id='home_shadow' transform='scale(1 -0.15) skewX(30)' stroke='none' fill='none' stroke-width='0.03'  xlink:href='#home_outline'/>
 			<use transform='scale(1)' stroke-width='0.01' xlink:href='#home_outline'/>
@@ -392,7 +392,7 @@
 			<line x1='-0.43' y1='0.6' x2='-0.25' y2='0.6'/>
 		</g></a>
 		
-		<a xlink:href="https://sites.google.com/site/dkrushinsky/contact">
+		<a xlink:href="https://sites.google.com/site/dkrushinsky/contact" target="_blank">
 		<g id='post_inst'  transform='translate(330 205) scale(15)' pointer-events="all" onmouseover='post_act(evt)' onmouseout='post_pas(evt)' stroke='black' stroke-width='0.03' fill='white'>
 			<g id='post_shadow'  transform='scale(1 -0.25) skewX(30)' stroke='none' fill='none' stroke-width='0.03'>
 				<g transform='translate(0 0.71)'>
@@ -413,7 +413,7 @@
 			</g>
 		</g></a>
 		
-		<a xlink:href="https://sites.google.com/site/dkrushinsky/recreation">
+		<a xlink:href="https://sites.google.com/site/dkrushinsky/recreation" target="_blank">
 		<g id='recr_inst'  transform='translate(50 210) scale(85)' pointer-events="all" onmouseover='recr_act(evt)' onmouseout='recr_pas(evt)' stroke='black' stroke-width='0.01' fill='white'>
 			<g id='recr_shadow'  transform='scale(1 -0.25) skewX(30)' stroke='none' fill='none' stroke-width='0.03'>
 				<use xlink:href='#umbrella'/>
@@ -428,7 +428,7 @@
 			</g>
 		</g></a>
 		
-		<a xlink:href="https://sites.google.com/site/dkrushinsky/research">
+		<a xlink:href="https://sites.google.com/site/dkrushinsky/research" target="_blank">
 		<g id='sci_inst' transform='translate(70 60) scale(60)' pointer-events="all" onmouseover='sci_act(evt)' onmouseout='sci_pas(evt)' stroke='black' stroke-width='0.01' fill='none'>
 			<g id='sci_shadow'  transform='scale(1 -0.25) skewX(30)' stroke='none' fill='none' stroke-width='0.03'>
 				<g>
@@ -475,7 +475,7 @@
 			</g>
 		</g></a>
 		
-		<a xlink:href="https://sites.google.com/site/dkrushinsky/useful-links">
+		<a xlink:href="https://sites.google.com/site/dkrushinsky/useful-links" target="_blank">
 		<g id='link_inst'  transform='translate(240 40) scale(50)' pointer-events="all" onmouseover='link_act(evt)' onmouseout='link_pas(evt)' stroke='black' stroke-width='0.02' fill='white'>
 			<g id='link_shadow'  transform='scale(1 -0.25) skewX(30)' stroke='none' fill='none' stroke-width='0.03'>
 				<use xlink:href='#link_stick'/>
@@ -485,7 +485,7 @@
 			<use id='inst_link_dirs' xlink:href='#link_dirs'/>
 		</g></a>
 		
-		<a xlink:href="https://sites.google.com/site/dkrushinsky/gadgets">
+		<a xlink:href="https://sites.google.com/site/dkrushinsky/gadgets" target="_blank">
 		<g id='gadget_inst'  transform='translate(380 110) scale(60)' pointer-events="all" onmouseover='gadget_act(evt)' onmouseout='gadget_pas(evt)' stroke='black' stroke-width='0.01' fill='none'>
 			<g id='gadget_shadow'  transform='scale(1 -0.25) skewX(30)' stroke='none' fill='none' stroke-width='0.03'>
 				<use id='inst_calc' xlink:href='#calc_all'/>
