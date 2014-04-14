@@ -47,7 +47,7 @@
 	}
 	function Init()
 	{var i;
-		N=300;
+		N=200;
 		M=Math.floor(N/2);
 		t_imp=3;
 		p_imp=25;
