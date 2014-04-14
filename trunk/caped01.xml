@@ -335,7 +335,8 @@
 		fl_upd=true; OnPaint();
 	}
   
-  OnInit();
+  //OnInit();
+  gadgets.util.registerOnLoadHandler(OnInit);
 	-->
 	</SCRIPT>
 
