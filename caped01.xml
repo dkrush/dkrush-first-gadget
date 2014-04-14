@@ -137,7 +137,7 @@
 		OnPaint();
 	}
 	function OnSettingsButton()
-	{
+	{msg.createDismissibleMessage("OnSettingsButton");
 		if(document.getElementById("settbtn").value=="settings >"){
 			document.getElementById("settbtn").value="settings <";
 			document.getElementById("settdiv").style.display='block';
