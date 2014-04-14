@@ -112,7 +112,7 @@
 	}
   function OnInit()
 	{
-        alert("OnInit");
+        //alert("OnInit");
         //msg.createDismissibleMessage("Please close me when you're done reading me.");
       Init();//Step();
 	}
