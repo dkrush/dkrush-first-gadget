@@ -15,7 +15,7 @@
 		div.sett 	{background-color:rgb(220,220,220); padding-left:20px;}
 		div.info 	{background-color:rgb(220,225,220); padding-left:20px;}
 	</STYLE>
-	<SCRIPT type="text/javascript" src="matrix.js"></SCRIPT> 
+	<SCRIPT type="text/javascript" src="//dkrush-first-gadget.googlecode.com/svn/trunk/matrix.js"></SCRIPT> 
 	<SCRIPT type="text/javascript"> 
 	<!--
 	var myTimer,dt=300;
