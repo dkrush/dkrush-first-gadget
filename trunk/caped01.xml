@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
   <ModulePrefs title="CA_ped"> 
+  <Require feature="dynamic-height"/>
   <Require feature="opensocial-0.8" />
   <Require feature="minimessage"/>
   </ModulePrefs>
@@ -145,6 +146,7 @@
 			document.getElementById("settbtn").value="settings >";
 			document.getElementById("settdiv").style.display='none';
 		}
+      gadgets.window.adjustHeight();
 	}
 	function OnInfoButton()
 	{
@@ -155,6 +157,7 @@
 			document.getElementById("infobtn").value="info >";
 			document.getElementById("infodiv").style.display='none';
 		}
+      gadgets.window.adjustHeight();
 	}
 	function OnPaint()
 	{var i,j,offs,a,b,x,y,str="",str1="";
