@@ -45,12 +45,6 @@
 	function sleep(millis, callback) {
 		setTimeout(function(){ callback(); }, millis);
 	}
-	function OnInit()
-	{
-        alert("OnInit");
-        msg.createDismissibleMessage("Please close me when you're done reading me.");
-      Init();//Step();
-	}
 	function Init()
 	{var i;
 		N=300;
@@ -116,6 +110,12 @@
 			document.getElementById("ed_res").value=N;
 		}
 	}
+  function OnInit()
+	{
+        alert("OnInit");
+        //msg.createDismissibleMessage("Please close me when you're done reading me.");
+      Init();//Step();
+	}
 	function OnStartButton()
 	{//alert("OnButton()");
 		if(document.getElementById("startbtn").value=="start"){
@@ -137,7 +137,7 @@
 		OnPaint();
 	}
 	function OnSettingsButton()
-	{msg.createDismissibleMessage("OnSettingsButton");
+	{//msg.createDismissibleMessage("OnSettingsButton");
 		if(document.getElementById("settbtn").value=="settings >"){
 			document.getElementById("settbtn").value="settings <";
 			document.getElementById("settdiv").style.display='block';
