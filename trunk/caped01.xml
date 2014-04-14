@@ -334,11 +334,11 @@
 		}
 		fl_upd=true; OnPaint();
 	}
+  
+  OnInit();
 	-->
 	</SCRIPT>
 
-
-OnInit();
 
 <input type="button" id="startbtn" value="start" onclick="OnStartButton()"/>
 <input type="button" id="settbtn" value="settings >" onclick="OnSettingsButton()"/>
