@@ -47,7 +47,9 @@
 	}
 	function OnInit()
 	{
-		Init();//Step();
+        alert("OnInit");
+        msg.createDismissibleMessage("Please close me when you're done reading me.");
+      Init();//Step();
 	}
 	function Init()
 	{var i;
