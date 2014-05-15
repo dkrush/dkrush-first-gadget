@@ -3,6 +3,7 @@
   <ModulePrefs title="Encode"> 
   <Require feature="opensocial-0.8" />
   <Require feature="minimessage"/>
+  <Require feature="dynamic-height"/>
   </ModulePrefs>
   <Content type="html" view="home">
 	 <![CDATA[
