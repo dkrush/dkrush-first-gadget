@@ -53,10 +53,9 @@
 	{
 		document.getElementById("inedit").value=prev_str; 
 	}
+   gadgets.util.registerOnLoadHandler(OnInit);
 	-->
 	</SCRIPT>
-
-OnInit();
 	
 Action:
 <select id="actionlist">
