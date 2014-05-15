@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Encode"> 
+  <Require feature="opensocial-0.8" />
+  <Require feature="minimessage"/>
+  </ModulePrefs>
+  <Content type="html" view="home">
+	 <![CDATA[
+	 
+	 <STYLE type="text/css">
+		INPUT.myinp {text-align: right; width: 300px}
+		INPUT.mybut {width: 50px; height: 25px}              
+	</STYLE>
+	<!-- base encodings: see http://www.faqs.org/rfcs/rfc3548.html-->
+	<SCRIPT type="text/javascript" src="base16.js"></SCRIPT>
+	<SCRIPT type="text/javascript" src="base32.js"></SCRIPT>
+	<SCRIPT type="text/javascript" src="base64.js"></SCRIPT> 
+	<SCRIPT type="text/javascript"> 
+	<!--
+	var prev_str="";
+	function OnInit()
+	{
+		base64_Init(); base32_Init(); base16_Init();
+		//document.getElementById("inedit").value=base64_Init();
+		//document.getElementById("inedit").value=base32_Init();
+		//document.getElementById("inedit").value=base16_Init();
+	}
+	function OnClrButton(){	
+		document.getElementById("inedit").value="some text"; 
+		//OnInit();
+	}
+	function OnDoIt()
+	{var res;
+		prev_str=document.getElementById("inedit").value; 
+		var i=document.getElementById("actionlist").selectedIndex;
+		//alert(base64inv.toString());//alert(i);
+		switch(i){
+		case 0:res=base16_encode(prev_str);break;
+		case 1:res=base16_decode(prev_str);break;
+		case 2:res=base32_encode(prev_str);break;
+		case 3:res=base32_decode(prev_str);break;
+		case 4:res=base64_encode(prev_str);break;
+		case 5:res=base64_decode(prev_str);break;
+		case 6:res=base32_encode(base16_decode(prev_str));break;
+		case 7:res=base16_encode(base32_decode(prev_str));break;
+		case 8:res=base64_encode(base16_decode(prev_str));break;
+		case 9:res=base16_encode(base64_decode(prev_str));break;
+		default: res="invalid action index ["+i+"]";
+		}
+		document.getElementById("inedit").value=res;
+	}
+	function OnUndo()
+	{
+		document.getElementById("inedit").value=prev_str; 
+	}
+	-->
+	</SCRIPT>
+
+OnInit();
+	
+Action:
+<select id="actionlist">
+   <option value="e_base16">Base16 encode</option>
+   <option value="d_base16">Base16 decode</option>
+   <option value="e_base32">Base32 encode</option>
+   <option value="d_base32">Base32 decode</option>
+   <option value="e_base64">Base64 encode</option>
+   <option value="d_base64">Base64 decode</option>
+   <option value="e_1632">16 to 32</option>
+   <option value="d_1632">32 to 16</option>
+   <option value="e_1664">16 to 64</option>
+   <option value="d_1664">64 to 16</option>
+ </select>
+<input type="button" class="mybut" id="doitbtn" value="Go!" onclick="OnDoIt()"/>
+<input type="button" class="mybut" id="undobtn" value="Undo" onclick="OnUndo()"/>
+<input type="button" class="mybut" id="clearbtn" value="Clear" onclick="OnClrButton()"/>
+<br/>
+<textarea id="inedit" cols="76" rows="10"></textarea>
+	 
+	 ]]>  
+  </Content>
+</Module>
