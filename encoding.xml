@@ -12,9 +12,9 @@
 		INPUT.mybut {width: 50px; height: 25px}              
 	</STYLE>
 	<!-- base encodings: see http://www.faqs.org/rfcs/rfc3548.html-->
-	<SCRIPT type="text/javascript" src="base16.js"></SCRIPT>
-	<SCRIPT type="text/javascript" src="base32.js"></SCRIPT>
-	<SCRIPT type="text/javascript" src="base64.js"></SCRIPT> 
+	<SCRIPT type="text/javascript" src="//dkrush-first-gadget.googlecode.com/svn/trunk/base16.js"></SCRIPT>
+	<SCRIPT type="text/javascript" src="//dkrush-first-gadget.googlecode.com/svn/trunk/base32.js"></SCRIPT>
+	<SCRIPT type="text/javascript" src="//dkrush-first-gadget.googlecode.com/svn/trunk/base64.js"></SCRIPT> 
 	<SCRIPT type="text/javascript"> 
 	<!--
 	var prev_str="";
