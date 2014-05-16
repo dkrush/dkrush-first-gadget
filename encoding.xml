@@ -56,7 +56,7 @@
 	}
    function OnTextResize()
    {
-     gadgets.window.adjustHeight();alert("onresize");
+     gadgets.window.adjustHeight();//alert("onresize");
    }
    gadgets.util.registerOnLoadHandler(OnInit);
 	-->
