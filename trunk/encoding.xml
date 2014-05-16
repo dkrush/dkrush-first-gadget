@@ -54,6 +54,10 @@
 	{
 		document.getElementById("inedit").value=prev_str; 
 	}
+   function OnTextResize()
+   {
+     gadgets.window.adjustHeight();
+   }
    gadgets.util.registerOnLoadHandler(OnInit);
 	-->
 	</SCRIPT>
@@ -75,7 +79,7 @@ Action:
 <input type="button" class="mybut" id="undobtn" value="Undo" onclick="OnUndo()"/>
 <input type="button" class="mybut" id="clearbtn" value="Clear" onclick="OnClrButton()"/>
 <br/>
-<textarea id="inedit" cols="76" rows="10"></textarea>
+<textarea id="inedit" cols="76" rows="10" onresize="OnTextResize()"></textarea>
 	 
 	 ]]>  
   </Content>
